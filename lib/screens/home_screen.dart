@@ -191,17 +191,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildQuickActions(BuildContext context) {
     final actions = [
       ('Начать тренировку', Icons.play_arrow_rounded, AppColors.gold, () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => WorkoutScreen(exercises: allExercises.take(5).toList())));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => WorkoutScreen(exercises: allExercises.take(6).toList())));
       }),
       ('Каталог упражнений', Icons.menu_book_rounded, AppColors.goldDark, () {
-        // Switch to exercises tab
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const ExercisesScreen()));
       }),
-      ('Мои программы', Icons.assignment_rounded, AppColors.gold, () {}),
+      ('Мои программы', Icons.assignment_rounded, AppColors.gold, () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const ProgramsScreen()));
+      }),
       ('Питание и калории', Icons.restaurant_rounded, AppColors.goldDark, () {
         Navigator.push(context, MaterialPageRoute(builder: (_) => const NutritionScreen()));
       }),
-      ('Мой прогресс', Icons.bar_chart_rounded, AppColors.gold, () {}),
-      ('Избранное', Icons.favorite_rounded, AppColors.goldDark, () {}),
+      ('Мой прогресс', Icons.bar_chart_rounded, AppColors.gold, () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const ProgressScreen()));
+      }),
+      ('Избранное', Icons.favorite_rounded, AppColors.goldDark, () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const ExercisesScreen()));
+      }),
     ];
 
     return GridView.count(
@@ -277,7 +283,11 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, i) {
           final cat = categories[i];
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (_) => ExercisesScreen(initialMuscle: cat.$3),
+              ));
+            },
             child: Container(
               width: 80,
               decoration: BoxDecoration(

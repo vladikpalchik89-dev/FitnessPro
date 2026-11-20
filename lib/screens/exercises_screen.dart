@@ -5,7 +5,8 @@ import 'package:fitness_pro/data/exercises_data.dart';
 import 'package:fitness_pro/screens/exercise_detail_screen.dart';
 
 class ExercisesScreen extends StatefulWidget {
-  const ExercisesScreen({super.key});
+  final MuscleGroup? initialMuscle;
+  const ExercisesScreen({super.key, this.initialMuscle});
 
   @override
   State<ExercisesScreen> createState() => _ExercisesScreenState();
@@ -16,6 +17,12 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
   String _searchQuery = '';
   MuscleGroup? _selectedMuscle;
   Difficulty? _selectedDifficulty;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedMuscle = widget.initialMuscle;
+  }
 
   List<Exercise> get _filteredExercises {
     var list = allExercises;

@@ -28,6 +28,21 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Create fresh Flutter project and merge code
+        run: |
+          cp -r lib /tmp/lib_backup
+          cp pubspec.yaml /tmp/pubspec_backup.yaml
+          flutter create --project-name fitness_pro --org com.fitnesspro --platforms android /tmp/fresh_project
+          rm -rf /tmp/fresh_project/lib
+          cp -r /tmp/lib_backup /tmp/fresh_project/lib
+          cp /tmp/pubspec_backup.yaml /tmp/fresh_project/pubspec.yaml
+          cp android/app/src/main/AndroidManifest.xml /tmp/fresh_project/android/app/src/main/AndroidManifest.xml
+          rm -rf *
+          cp -r /tmp/fresh_project/* .
+          cp -r /tmp/fresh_project/.[!.]* . 2>/dev/null || true
+          grep -n "flutterEmbedding" android/app/src/main/AndroidManifest.xml
+          ls -la
+
       - name: Install dependencies
         run: flutter pub get
 

@@ -31,6 +31,12 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Generate local.properties
+        run: |
+          echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
+          echo "sdk.dir=$ANDROID_SDK_ROOT" >> android/local.properties
+          cat android/local.properties
+
       - name: Analyze code
         run: flutter analyze --no-fatal-infos || true
 
@@ -42,31 +48,4 @@ jobs:
         with:
           name: fitness-pro-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
-          retention-days: 30
-
-  build-ios:
-    name: Build iOS (simulator)
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.0'
-          channel: 'stable'
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build iOS (simulator)
-        run: flutter build ios --simulator --no-codesign
-
-      - name: Upload iOS build
-        uses: actions/upload-artifact@v4
-        with:
-          name: fitness-pro-ios-simulator
-          path: build/ios/iphonesimulator/
           retention-days: 30

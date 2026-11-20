@@ -43,5 +43,3 @@ jobs:
           name: fitness-pro-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
           retention-days: 30
-YAML
-echo "workflow updated"

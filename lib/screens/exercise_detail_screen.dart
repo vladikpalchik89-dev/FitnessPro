@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitness_pro/theme/app_theme.dart';
 import 'package:fitness_pro/models/exercise.dart';
+import 'package:fitness_pro/screens/workout_screen.dart';
 
 class ExerciseDetailScreen extends StatelessWidget {
   final Exercise exercise;
@@ -121,6 +122,31 @@ class ExerciseDetailScreen extends StatelessWidget {
                         label: const Text('Смотреть видеоинструкцию'),
                       ),
                     ),
+                  const SizedBox(height: 12),
+
+                  // Start workout button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => WorkoutScreen(
+                              exercises: [exercise],
+                              workoutName: exercise.nameRu,
+                            ),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.play_arrow),
+                      label: const Text('Начать тренировку'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.gold,
+                        foregroundColor: Colors.black,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 40),
                 ],
               ),

@@ -1,0 +1,44 @@
+name: fitness_pro
+description: "FITNESS PRO - Твой персональный тренер"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  sqflite: ^2.3.0
+  path: ^1.9.0
+  shared_preferences: ^2.2.2
+  supabase_flutter: ^2.5.0
+  cached_network_image: ^3.3.1
+  video_player: ^2.8.2
+  chewie: ^1.7.4
+  flutter_local_notifications: ^17.1.2
+  audioplayers: ^6.0.0
+  table_calendar: ^3.1.2
+  fl_chart: ^0.68.0
+  url_launcher: ^6.2.5
+  image_picker: ^1.1.2
+  connectivity_plus: ^6.0.3
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 700

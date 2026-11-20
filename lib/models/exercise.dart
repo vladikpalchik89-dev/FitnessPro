@@ -3,6 +3,7 @@ enum MuscleGroup {
   back,
   shoulders,
   biceps,
+  forearms,
   triceps,
   legs,
   glutes,
@@ -71,6 +72,7 @@ class Exercise {
       case MuscleGroup.back: return 'Спина';
       case MuscleGroup.shoulders: return 'Плечи';
       case MuscleGroup.biceps: return 'Бицепс';
+      case MuscleGroup.forearms: return 'Предплечья';
       case MuscleGroup.triceps: return 'Трицепс';
       case MuscleGroup.legs: return 'Ноги';
       case MuscleGroup.glutes: return 'Ягодицы';

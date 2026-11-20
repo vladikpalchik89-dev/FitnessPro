@@ -28,14 +28,34 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Create fresh Flutter project and merge code
+        run: |
+          # Backup our code
+          cp -r lib /tmp/lib_backup
+          cp pubspec.yaml /tmp/pubspec_backup.yaml
+          
+          # Create fresh Flutter project
+          flutter create --project-name fitness_pro --org com.fitnesspro --platforms android /tmp/fresh_project
+          
+          # Copy fresh android config
+          cp -r /tmp/fresh_project/android android_fresh
+          
+          # Restore our lib and pubspec
+          rm -rf lib
+          cp -r /tmp/lib_backup lib
+          cp /tmp/pubspec_backup.yaml pubspec.yaml
+          
+          # Replace android with fresh (v2 embedding)
+          rm -rf android
+          mv android_fresh android
+          
+          # Verify manifest has flutterEmbedding
+          grep -n "flutterEmbedding" android/app/src/main/AndroidManifest.xml
+          
+          ls -la
+
       - name: Install dependencies
         run: flutter pub get
-
-      - name: Generate local.properties
-        run: |
-          echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
-          echo "sdk.dir=$ANDROID_SDK_ROOT" >> android/local.properties
-          cat android/local.properties
 
       - name: Analyze code
         run: flutter analyze --no-fatal-infos || true

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fitness_pro/theme/app_theme.dart';
 import 'package:fitness_pro/models/exercise.dart';
 import 'package:fitness_pro/data/exercises_data.dart';
+import 'package:fitness_pro/screens/workout_screen.dart';
+import 'package:fitness_pro/screens/nutrition_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -188,12 +190,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildQuickActions(BuildContext context) {
     final actions = [
-      ('Начать тренировку', Icons.play_arrow_rounded, AppColors.gold),
-      ('Каталог упражнений', Icons.menu_book_rounded, AppColors.goldDark),
-      ('Мои программы', Icons.assignment_rounded, AppColors.gold),
-      ('Мой прогресс', Icons.bar_chart_rounded, AppColors.goldDark),
-      ('Избранное', Icons.favorite_rounded, AppColors.gold),
-      ('Таймер отдыха', Icons.timer_rounded, AppColors.goldDark),
+      ('Начать тренировку', Icons.play_arrow_rounded, AppColors.gold, () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => WorkoutScreen(exercises: allExercises.take(5).toList())));
+      }),
+      ('Каталог упражнений', Icons.menu_book_rounded, AppColors.goldDark, () {
+        // Switch to exercises tab
+      }),
+      ('Мои программы', Icons.assignment_rounded, AppColors.gold, () {}),
+      ('Питание и калории', Icons.restaurant_rounded, AppColors.goldDark, () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const NutritionScreen()));
+      }),
+      ('Мой прогресс', Icons.bar_chart_rounded, AppColors.gold, () {}),
+      ('Избранное', Icons.favorite_rounded, AppColors.goldDark, () {}),
     ];
 
     return GridView.count(
@@ -203,42 +211,45 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
       childAspectRatio: 1.0,
-      children: actions.map((a) => _buildActionCard(a.$1, a.$2, a.$3)).toList(),
+      children: actions.map((a) => _buildActionCard(a.$1, a.$2, a.$3, a.$4)).toList(),
     );
   }
 
-  Widget _buildActionCard(String title, IconData icon, Color color) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.card,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.15),
-              shape: BoxShape.circle,
+  Widget _buildActionCard(String title, IconData icon, Color color, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.divider),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.15),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 24),
             ),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: AppColors.white,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: AppColors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

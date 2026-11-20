@@ -5,6 +5,8 @@ import 'package:fitness_pro/screens/exercises_screen.dart';
 import 'package:fitness_pro/screens/programs_screen.dart';
 import 'package:fitness_pro/screens/progress_screen.dart';
 import 'package:fitness_pro/screens/profile_screen.dart';
+import 'package:fitness_pro/screens/nutrition_screen.dart';
+import 'package:fitness_pro/screens/workout_screen.dart';
 
 class FitnessProApp extends StatelessWidget {
   const FitnessProApp({super.key});
